@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-poll-station",
@@ -8,20 +9,28 @@ import { Component, OnInit } from "@angular/core";
 export class PollStationComponent {
   public choosenOption = "";
 
+  public constructor(private router: Router) {}
+
+  public goToResults(): void {
+    if (this.isVoted) {
+      this.router.navigateByUrl("results");
+    }
+  }
+
   public chooseOption(option: string): void {
     this.choosenOption = option;
   }
 
-  public  get voted(): string{
-    if(this.choosenOption){
-      return '';
+  public get voted(): string {
+    if (this.choosenOption) {
+      return "";
     }
 
-    return 'disabled';
+    return "disabled";
   }
 
-  public get isVoted(): boolean{
-    if(this.choosenOption){
+  public get isVoted(): boolean {
+    if (this.choosenOption) {
       return true;
     }
 
