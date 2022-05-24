@@ -1,1 +1,44 @@
-<div class="poll-station">poll-station works!</div>
+<div class="poll-station">
+  <div class="poll-title">
+    Which option is the best?
+    <img src="../../assets/ask.png" />
+  </div>
+
+  <div
+    class="poll-option"
+    (click)="chooseOption('option-1')"
+    [ngClass]="{ 'option-1': choosenOption === 'option-1' }"
+  >
+    Option 1
+  </div>
+  <div
+    class="poll-option"
+    (click)="chooseOption('option-2')"
+    [ngClass]="{ 'option-2': choosenOption === 'option-2' }"
+  >
+    Option 2
+  </div>
+  <div
+    class="poll-option"
+    (click)="chooseOption('option-3')"
+    [ngClass]="{ 'option-3': choosenOption === 'option-3' }"
+  >
+    Option 3
+  </div>
+  <div
+    class="poll-option"
+    (click)="chooseOption('option-4')"
+    [ngClass]="{ 'option-4': choosenOption === 'option-4' }"
+  >
+    Option 4
+  </div>
+  <div
+    class="poll-option"
+    (click)="chooseOption('option-5')"
+    [ngClass]="{ 'option-5': choosenOption === 'option-5' }"
+  >
+    Option 5
+  </div>
+
+  <button class="poll-button" [ngClass]="voted">Vote</button>
+</div>

@@ -3,16 +3,7 @@
     <img src="../../assets/logo.png" />
     <div *ngIf="signedIn" class="account-id">{{ greetingsMessage }}</div>
   </div>
-  <div class="menu">
-    <button
-      *ngIf="signedIn"
-      class="option-menu-text"
-      (click)="goTo('features')"
-    >
-      My Polls
-    </button>
-    <button *ngIf="!signedIn" class="option-menu-text" (click)="login()">
-      Login
-    </button>
+  <div class="menu-options">
+    <button *ngIf="!signedIn" class="option-menu-text">Login</button>
   </div>
 </div>
