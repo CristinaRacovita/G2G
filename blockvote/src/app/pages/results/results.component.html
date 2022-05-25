@@ -1,20 +1,2 @@
 <app-toolbar></app-toolbar>
-
-<div class="greeting">
-    <div class="options vertical">
-        <span id="legendTitle">Results</span>
-        <igx-item-legend #legend></igx-item-legend>
-    </div>
-
-    <div class="container">
-        <igx-pie-chart height="100%"
-            width="100%"
-            [dataSource]="dataChart"
-            [legend]="legend"
-            valueMemberPath="Value"
-            labelMemberPath="Label"
-            labelsPosition="BestFit"
-            radiusFactor="0.7">
-        </igx-pie-chart>
-    </div>
-</div>
+<app-poll-results class="results"></app-poll-results>

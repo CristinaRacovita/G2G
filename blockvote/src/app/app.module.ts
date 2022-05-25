@@ -9,11 +9,7 @@ import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { PollStationComponent } from "./components/poll-station/poll-station.component";
 import { PollComponent } from "./pages/poll/poll.component";
 import { ResultsComponent } from "./pages/results/results.component";
-import {
-  IgxPieChartModule,
-  IgxLegendModule,
-  IgxItemLegendModule,
-} from "igniteui-angular-charts";
+import { PollResultsComponent } from './components/poll-results/poll-results.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +18,12 @@ import {
     PollStationComponent,
     PollComponent,
     ResultsComponent,
+    PollResultsComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    IgxPieChartModule,
-    IgxLegendModule,
-    IgxItemLegendModule,
   ],
   providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent],

@@ -1,0 +1,14 @@
+<div class="poll-results">
+  <div class="poll-title">Results Breakdown</div>
+
+  <div class="poll-option" *ngFor="let option of sortedVotes" [ngClass]="{'big-value': checkBigValue(option)}">
+    <div class="results">
+      <div>
+        {{ option }}
+      </div>
+      <div>
+        {{ getProcent(option) }}%
+      </div>
+    </div>
+  </div>
+</div>
