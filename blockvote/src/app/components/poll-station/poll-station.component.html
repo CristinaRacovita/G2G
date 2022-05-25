@@ -6,39 +6,14 @@
 
   <div
     class="poll-option"
-    (click)="chooseOption('option-1')"
-    [ngClass]="{ 'option-1': choosenOption === 'option-1' }"
+    *ngFor="let in of setArrayFromNumber(5); let i = index"
+    (click)="chooseOption(i)"
+    [ngClass]="{ 'option-clicked': isClassApplied(i) }"
   >
-    Option 1
-  </div>
-  <div
-    class="poll-option"
-    (click)="chooseOption('option-2')"
-    [ngClass]="{ 'option-2': choosenOption === 'option-2' }"
-  >
-    Option 2
-  </div>
-  <div
-    class="poll-option"
-    (click)="chooseOption('option-3')"
-    [ngClass]="{ 'option-3': choosenOption === 'option-3' }"
-  >
-    Option 3
-  </div>
-  <div
-    class="poll-option"
-    (click)="chooseOption('option-4')"
-    [ngClass]="{ 'option-4': choosenOption === 'option-4' }"
-  >
-    Option 4
-  </div>
-  <div
-    class="poll-option"
-    (click)="chooseOption('option-5')"
-    [ngClass]="{ 'option-5': choosenOption === 'option-5' }"
-  >
-    Option 5
+    Option {{ i }}
   </div>
 
-  <button class="poll-button" [ngClass]="voted" (click)="goToResults()">Vote</button>
+  <button class="poll-button" [ngClass]="voted" (click)="voteAndGoToResults()">
+    Vote
+  </button>
 </div>

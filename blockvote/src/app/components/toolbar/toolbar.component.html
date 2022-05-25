@@ -1,9 +1,11 @@
 <div class="nav">
-  <div (click)="goTo('home')" class="logo">
+  <div (click)="goToHome()" class="logo">
     <img src="../../assets/logo.png" />
     <div *ngIf="signedIn" class="account-id">{{ greetingsMessage }}</div>
   </div>
   <div class="menu-options">
-    <button *ngIf="!signedIn" class="option-menu-text">Login</button>
+    <button *ngIf="!signedIn" class="option-menu-text" (click)="login()">
+      Login
+    </button>
   </div>
 </div>

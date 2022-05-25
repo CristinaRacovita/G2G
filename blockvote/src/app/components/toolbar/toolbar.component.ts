@@ -1,4 +1,5 @@
 import { Component, Inject } from "@angular/core";
+import { Router } from "@angular/router";
 import { WINDOW } from "src/app/services/window.service";
 import { login } from "src/utils";
 
@@ -8,8 +9,14 @@ import { login } from "src/utils";
   styleUrls: ["./toolbar.component.scss"],
 })
 export class ToolbarComponent {
-  public constructor(@Inject(WINDOW) private window: Window) {}
-  public goTo(page: string): void {}
+  public constructor(
+    @Inject(WINDOW) private window: Window,
+    private router: Router
+  ) {}
+
+  public goToHome(): void {
+    this.router.navigateByUrl("");
+  }
 
   public get accountId(): string {
     return this.window.walletConnection.getAccountId();
@@ -27,7 +34,8 @@ export class ToolbarComponent {
     return this.window.walletConnection.isSignedIn();
   }
 
-  public login(): void{
+  public login(): void {
+    console.log("push");
     login();
   }
 }

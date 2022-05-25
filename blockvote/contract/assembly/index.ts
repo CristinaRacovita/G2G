@@ -1,31 +1,54 @@
-/*
- * This is an example of an AssemblyScript smart contract with two simple,
- * symmetric functions:
- *
- * 1. setGreeting: accepts a greeting, such as "howdy", and records it for the
- *    user (account_id) who sent the request
- * 2. getGreeting: accepts an account_id and returns the greeting saved for it,
- *    defaulting to "Hello"
- *
- */
+import { Context, logging, PersistentMap, storage } from "near-sdk-as";
 
-import { Context, logging, storage } from 'near-sdk-as'
+// const votes = new PersistentMap<string, string>("votes");
+const participations = new PersistentMap<string, string>("participants");
 
-const DEFAULT_MESSAGE = 'Hello'
-
-// Exported functions will be part of the public interface for your smart contract.
-// Feel free to extract behavior to non-exported functions!
-export function getGreeting(accountId: string): string | null {
-  // This uses raw `storage.get`, a low-level way to interact with on-chain
-  // storage for simple contracts.
-  // state of a contract
-  // which you would normally store by writing values into a database, is instead stored on the blockchain
-  return storage.get<string>(accountId, DEFAULT_MESSAGE)
+// View Methods
+export function getVotes(): Map<string, string> | null {
+  return storage.get<Map<string, string>>("my-votes");
 }
 
-export function setGreeting(message: string): void {
-  const accountId = Context.sender
-  // Use logging.log to record logs permanently to the blockchain!
-  logging.log(`Saving greeting "${message}" for account "${accountId}"`)
-  storage.set(accountId, message)
+export function getIsUserParticipated(accountId: string): bool {
+  if (participations.contains(accountId)) {
+    return true;
+  }
+
+  return false;
+}
+
+export function getVote(accountId: string): string | null {
+  return participations.get(accountId, "");
+}
+
+// Change Methods
+// Cost a transaction fee to change the state of
+export function vote(option: string): void {
+  const accountId = Context.sender;
+  logging.log("Starting...");
+
+  const votes = storage.get<Map<string, string>>("my-votes");
+  if (votes != null) {
+    if (votes.has(option)) {
+      const numberOfVotes = votes.get(option);
+      if (numberOfVotes != null) {
+        const votesNumber = parseInt(numberOfVotes!) + 1;
+
+        votes.set(option, votesNumber.toString());
+      } else {
+        votes.set(option, "1");
+      }
+    } else {
+      votes.set(option, "1");
+    }
+
+    storage.set("my-votes", votes);
+  } else {
+    const newVotes = new Map<string, string>();
+    newVotes.set(option, "1");
+    storage.set("my-votes", newVotes);
+  }
+
+  participations.set(accountId, option);
+
+  logging.log(`User: "${accountId}" vote for "${option}"`);
 }
