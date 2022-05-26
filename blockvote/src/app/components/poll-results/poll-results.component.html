@@ -1,17 +1,19 @@
 <div class="poll-results">
   <div class="poll-breakdown">
     <div class="poll-title">Results Breakdown</div>
-    <div class="total"> Votes: {{ totalVotesNumber }}</div>
+    <div class="total">Votes: {{ totalVotesNumber }}</div>
   </div>
 
-  <div class="poll-option" *ngFor="let option of sortedVotes" [ngClass]="{'my-option': checkIfIsMyOption(option)}">
+  <div
+    class="poll-option"
+    *ngFor="let option of sortedVotes"
+    [ngClass]="{ 'my-option': checkIfIsMyOption(option) }"
+  >
     <div class="results">
       <div>
         {{ option }}
       </div>
-      <div>
-        {{ getProcent(option) }}%
-      </div>
+      <div>{{ getProcent(option) }}%</div>
     </div>
   </div>
 </div>

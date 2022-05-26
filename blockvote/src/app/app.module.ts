@@ -23,7 +23,7 @@ import { AuthGuard } from "./guards/auth.guard";
     PollComponent,
     ResultsComponent,
     PollResultsComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,
