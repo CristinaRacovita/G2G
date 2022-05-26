@@ -13,6 +13,7 @@ import { PollResultsComponent } from "./components/poll-results/poll-results.com
 import { ErrorDialogComponent } from "./components/error-dialog/error-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthGuard } from "./guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatDialogModule,
     BrowserAnimationsModule,
   ],
-  providers: [WINDOW_PROVIDERS],
+  providers: [WINDOW_PROVIDERS, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [ErrorDialogComponent],
 })
