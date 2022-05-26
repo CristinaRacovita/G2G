@@ -1,7 +1,7 @@
 import { Context, logging, PersistentMap, storage } from "near-sdk-as";
 
-const participations = new PersistentMap<string, string>("participants");
-const VOTES_KEY = "my-votes";
+const participations = new PersistentMap<string, string>("participant");
+const VOTES_KEY = "vote";
 const DEFAULT_VOTES_VALUE = "1";
 
 // View Methods
@@ -49,7 +49,7 @@ function setMap(storageKey: string, mapKey: string): void {
   if (map != null) {
     if (map.has(mapKey)) {
       const mapValue = map.get(mapKey);
-      const newMapValue = parseInt(mapValue!) + 1;
+      const newMapValue = parseInt(mapValue) + 1;
       map.set(mapKey, newMapValue.toString());
     } else {
       map.set(mapKey, DEFAULT_VOTES_VALUE);

@@ -16,6 +16,13 @@ export class PollStationComponent implements OnInit {
   public choosenOption = "";
   public alreadyVoted = false;
   public isLoading = false;
+  public answerOptions = [
+    "At least a month",
+    "Idk but I'm in",
+    "Idk but I want the bear",
+    "Summer camp",
+    "All the year",
+  ];
 
   public constructor(
     private router: Router,
@@ -49,11 +56,11 @@ export class PollStationComponent implements OnInit {
   }
 
   public chooseOption(option: number): void {
-    this.choosenOption = "Option " + option;
+    this.choosenOption = this.answerOptions[option];
   }
 
   public isClassApplied(option: number): boolean {
-    return this.choosenOption === "Option " + option;
+    return this.choosenOption === this.answerOptions[option];
   }
 
   public get voted(): string {

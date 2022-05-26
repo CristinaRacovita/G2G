@@ -4,7 +4,7 @@
 
 <div class="poll-station">
   <div class="poll-title">
-    Which option is the best?
+    How many days do you want G2G to last next year?
     <img src="../../assets/dog-what.png" />
   </div>
 
@@ -14,7 +14,7 @@
     (click)="chooseOption(i)"
     [ngClass]="{ 'option-clicked': isClassApplied(i) }"
   >
-    Option {{ i }}
+    {{ answerOptions[i] }}
   </div>
 
   <button class="poll-button" [ngClass]="voted" (click)="voteAndGoToResults()">
