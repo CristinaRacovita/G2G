@@ -7,14 +7,16 @@ import { WINDOW } from "src/app/services/window.service";
   styleUrls: ["./poll-results.component.scss"],
 })
 export class PollResultsComponent implements OnInit {
-  public votes: any;
+  public votes: Map<string, string>;
   public sortedVotes: string[] = [];
   public totalVotesNumber = 0;
+  public myVote = "";
 
   public constructor(@Inject(WINDOW) private window: Window) {}
 
   public ngOnInit(): void {
     this.getAllVotes();
+    this.getMyVote();
   }
 
   public get accountId(): string {
@@ -26,8 +28,8 @@ export class PollResultsComponent implements OnInit {
     return ((optionVotes / this.totalVotesNumber) * 100).toFixed(2);
   }
 
-  public checkBigValue(option: string): boolean {
-    return this.sortedVotes[0] === option;
+  public checkIfIsMyOption(option: string): boolean {
+    return this.myVote === option;
   }
 
   private async getAllVotes(): Promise<void> {
@@ -35,10 +37,9 @@ export class PollResultsComponent implements OnInit {
       this.votes = await this.window.contract.getVotes();
       this.fetchSortedVotes();
       this.calculateTotalVotesNumber();
-      console.log(this.totalVotesNumber.toString());
     } catch (e) {
       this.votes = new Map<string, string>();
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -51,10 +52,13 @@ export class PollResultsComponent implements OnInit {
   private calculateTotalVotesNumber(): void {
     this.totalVotesNumber = 0;
     this.sortedVotes.forEach((option: string) => {
-      console.log(parseInt(this.votes[option]).toString());
-      console.log(option);
       this.totalVotesNumber += parseInt(this.votes[option]);
-      console.log(this.totalVotesNumber.toString());
+    });
+  }
+
+  private async getMyVote(): Promise<void> {
+    this.myVote = await this.window.contract.getVote({
+      accountId: this.accountId,
     });
   }
 }

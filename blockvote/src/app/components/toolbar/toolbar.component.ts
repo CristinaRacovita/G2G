@@ -35,7 +35,6 @@ export class ToolbarComponent {
   }
 
   public login(): void {
-    console.log("push");
     login();
   }
 }

@@ -1,11 +1,12 @@
 import { Context, logging, PersistentMap, storage } from "near-sdk-as";
 
-// const votes = new PersistentMap<string, string>("votes");
 const participations = new PersistentMap<string, string>("participants");
+const VOTES_KEY = "my-votes";
+const DEFAULT_VOTES_VALUE = "1";
 
 // View Methods
 export function getVotes(): Map<string, string> | null {
-  return storage.get<Map<string, string>>("my-votes");
+  return storage.get<Map<string, string>>(VOTES_KEY);
 }
 
 export function getIsUserParticipated(accountId: string): bool {
@@ -26,29 +27,29 @@ export function vote(option: string): void {
   const accountId = Context.sender;
   logging.log("Starting...");
 
-  const votes = storage.get<Map<string, string>>("my-votes");
-  if (votes != null) {
-    if (votes.has(option)) {
-      const numberOfVotes = votes.get(option);
-      if (numberOfVotes != null) {
-        const votesNumber = parseInt(numberOfVotes!) + 1;
-
-        votes.set(option, votesNumber.toString());
-      } else {
-        votes.set(option, "1");
-      }
-    } else {
-      votes.set(option, "1");
-    }
-
-    storage.set("my-votes", votes);
-  } else {
-    const newVotes = new Map<string, string>();
-    newVotes.set(option, "1");
-    storage.set("my-votes", newVotes);
-  }
+  setMap(VOTES_KEY, option);
 
   participations.set(accountId, option);
 
   logging.log(`User: "${accountId}" vote for "${option}"`);
+}
+
+//private methods
+
+function setMap(storageKey: string, mapKey: string): void {
+  const map = storage.get<Map<string, string>>(storageKey);
+  if (map != null) {
+    if (map.has(mapKey)) {
+      const mapValue = map.get(mapKey);
+      const newMapValue = parseInt(mapValue!) + 1;
+      map.set(mapKey, newMapValue.toString());
+    } else {
+      map.set(mapKey, DEFAULT_VOTES_VALUE);
+    }
+    storage.set(storageKey, map);
+  } else {
+    const newMap = new Map<string, string>();
+    newMap.set(mapKey, DEFAULT_VOTES_VALUE);
+    storage.set(storageKey, newMap);
+  }
 }

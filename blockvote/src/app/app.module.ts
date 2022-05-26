@@ -9,7 +9,10 @@ import { ToolbarComponent } from "./components/toolbar/toolbar.component";
 import { PollStationComponent } from "./components/poll-station/poll-station.component";
 import { PollComponent } from "./pages/poll/poll.component";
 import { ResultsComponent } from "./pages/results/results.component";
-import { PollResultsComponent } from './components/poll-results/poll-results.component';
+import { PollResultsComponent } from "./components/poll-results/poll-results.component";
+import { ErrorDialogComponent } from "./components/error-dialog/error-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -19,13 +22,17 @@ import { PollResultsComponent } from './components/poll-results/poll-results.com
     PollComponent,
     ResultsComponent,
     PollResultsComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
   ],
   providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorDialogComponent],
 })
 export class AppModule {}

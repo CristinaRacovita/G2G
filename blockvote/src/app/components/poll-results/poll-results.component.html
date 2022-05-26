@@ -1,7 +1,10 @@
 <div class="poll-results">
-  <div class="poll-title">Results Breakdown</div>
+  <div class="poll-breakdown">
+    <div class="poll-title">Results Breakdown</div>
+    <div class="total"> Votes: {{ totalVotesNumber }}</div>
+  </div>
 
-  <div class="poll-option" *ngFor="let option of sortedVotes" [ngClass]="{'big-value': checkBigValue(option)}">
+  <div class="poll-option" *ngFor="let option of sortedVotes" [ngClass]="{'my-option': checkIfIsMyOption(option)}">
     <div class="results">
       <div>
         {{ option }}

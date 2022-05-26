@@ -1,7 +1,9 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { WINDOW } from "src/app/services/window.service";
 import getConfig from "src/config";
+import { MatDialog } from "@angular/material/dialog";
+import { ErrorDialogComponent } from "../error-dialog/error-dialog.component";
 
 const { networkId } = getConfig("development");
 
@@ -10,23 +12,31 @@ const { networkId } = getConfig("development");
   templateUrl: "./poll-station.component.html",
   styleUrls: ["./poll-station.component.scss"],
 })
-export class PollStationComponent {
+export class PollStationComponent implements OnInit {
   public choosenOption = "";
+  public alreadyVoted = false;
 
   public constructor(
     private router: Router,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    public dialog: MatDialog
   ) {}
+
+  public ngOnInit(): void {
+    this.fetchIfAlreadyVoted();
+  }
 
   public async voteAndGoToResults(): Promise<void> {
     try {
-      if (this.isVoted) {
+      if (this.isVoted && !this.alreadyVoted) {
         console.log(
           `https://explorer.${networkId}.near.org/accounts/${this.window.contract.contractId}`
         );
         await this.window.contract.vote({ option: this.choosenOption });
 
         this.router.navigateByUrl("results");
+      } else {
+        this.dialog.open(ErrorDialogComponent);
       }
     } catch (error) {
       console.error(error);
@@ -67,5 +77,11 @@ export class PollStationComponent {
 
   public setArrayFromNumber(i: number) {
     return new Array(i);
+  }
+
+  private async fetchIfAlreadyVoted(): Promise<void> {
+    this.alreadyVoted = await this.window.contract.getIsUserParticipated({
+      accountId: this.accountId,
+    });
   }
 }
