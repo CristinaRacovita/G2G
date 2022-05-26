@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { WINDOW } from "src/app/services/window.service";
-import { login } from "src/utils";
+import { login, logout } from "src/utils";
 
 @Component({
   selector: "app-toolbar",
@@ -36,5 +36,9 @@ export class ToolbarComponent {
 
   public login(): void {
     login();
+  }
+
+  public logout(): void {
+    logout();
   }
 }
