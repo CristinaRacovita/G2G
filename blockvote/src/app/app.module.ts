@@ -14,6 +14,7 @@ import { ErrorDialogComponent } from "./components/error-dialog/error-dialog.com
 import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthGuard } from "./guards/auth.guard";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthGuard } from "./guards/auth.guard";
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [WINDOW_PROVIDERS, AuthGuard],
   bootstrap: [AppComponent],

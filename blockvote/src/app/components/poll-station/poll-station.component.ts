@@ -15,6 +15,7 @@ const { networkId } = getConfig("development");
 export class PollStationComponent implements OnInit {
   public choosenOption = "";
   public alreadyVoted = false;
+  public isLoading = false;
 
   public constructor(
     private router: Router,
@@ -28,15 +29,19 @@ export class PollStationComponent implements OnInit {
 
   public async voteAndGoToResults(): Promise<void> {
     try {
-      if (this.isVoted && !this.alreadyVoted) {
-        console.log(
-          `https://explorer.${networkId}.near.org/accounts/${this.window.contract.contractId}`
-        );
-        await this.window.contract.vote({ option: this.choosenOption });
+      if (this.isVoted) {
+        if (!this.alreadyVoted) {
+          console.log(
+            `https://explorer.${networkId}.near.org/accounts/${this.window.contract.contractId}`
+          );
+          this.isLoading = true;
+          await this.window.contract.vote({ option: this.choosenOption });
 
-        this.router.navigateByUrl("results");
-      } else {
-        this.dialog.open(ErrorDialogComponent);
+          this.router.navigateByUrl("results");
+          this.isLoading = false;
+        } else {
+          this.dialog.open(ErrorDialogComponent);
+        }
       }
     } catch (error) {
       console.error(error);
