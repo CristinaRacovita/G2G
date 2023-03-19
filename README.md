@@ -1,6 +1,7 @@
 # E-voting System
 
 - Web application that integrates smart contracts & blockchain for implementing a secure voting method
+- [Quick Start](https://github.com/CristinaRacovita/G2G/tree/main/blockvote#readme)
 
 ## Fundamental Theory
 ### Distributed Ledger Technology
@@ -22,7 +23,3 @@
 ## Technology
 - Angular 12
 - Assembly Script ([NEAR](https://wallet.testnet.near.org/)) 
-
-
-
-
