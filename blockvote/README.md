@@ -1,4 +1,4 @@
-blockvote
+E-voting System
 ==================
 
 This [Angular] app was initialized with [create-near-app]
